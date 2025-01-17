@@ -1,0 +1,127 @@
+---
+title: Installation
+description: Learn how to install and set up the documentation framework.
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- Node.js 18.0 or higher
+- npm or yarn package manager
+- Git (optional, but recommended)
+
+## Quick Start
+
+1. Clone the repository:
+```bash filename="Terminal"
+git clone https://github.com/yourusername/docs
+cd docs
+```
+
+2. Install dependencies:
+```bash filename="Terminal"
+npm install
+# or
+yarn install
+```
+
+3. Configure your documentation:
+Edit `docsConfig.js` to customize your site:
+```js filename="docsConfig.js"
+export const docsConfig = {
+  title: 'Your Documentation',
+  description: 'Your documentation description',
+  // ... other configurations
+}
+```
+
+4. Start the development server:
+```bash filename="Terminal"
+npm run dev
+# or
+yarn dev
+```
+
+Your site should now be running at [http://localhost:3000](http://localhost:3000)!
+
+## Project Structure
+
+```txt filename="Directory Structure"
+docs/
+├── app/               # Next.js app directory
+├── components/        # React components
+├── content/          # Documentation content
+│   └── docs/         # MDX files
+├── lib/              # Utility functions
+└── public/           # Static assets
+```
+
+## Adding Content
+
+1. Create new `.mdx` files in the `content/docs` directory
+2. Add frontmatter with metadata
+3. Write your content using Markdown and MDX
+4. Update `docsConfig.js` to include new pages in the sidebar
+
+## Configuration Options
+
+### Site Metadata
+```js filename="docsConfig.js"
+{
+  title: 'Your Site Title',
+  description: 'Your site description',
+  logo: {
+    light: '/logo-light.svg',
+    dark: '/logo-dark.svg',
+  }
+}
+```
+
+### Navigation Links
+```js filename="docsConfig.js"
+{
+  navigation: {
+    links: [
+      {
+        title: 'GitHub',
+        href: 'https://github.com',
+        external: true
+      }
+    ]
+  }
+}
+```
+
+### Sidebar Structure
+```js filename="docsConfig.js"
+{
+  sidebar: {
+    groups: [
+      {
+        title: 'Getting Started',
+        items: [
+          {
+            title: 'Introduction',
+            href: '/docs/introduction'
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+## Customizing Styles
+
+The documentation site uses Tailwind CSS for styling. You can customize the look and feel by:
+
+1. Modifying the Tailwind configuration
+2. Adding custom CSS in `styles/globals.css`
+3. Using Tailwind classes in your MDX content
+
+## Next Steps
+
+- Add more documentation pages
+- Customize the theme
+- Deploy your site
+- Set up a custom domain 

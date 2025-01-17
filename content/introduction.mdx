@@ -1,0 +1,138 @@
+---
+title: Introduction
+description: A modern documentation framework built with Next.js and Shadcn UI.
+---
+
+# Next.js Documentation Framework
+
+A modern, feature-rich documentation framework built with Next.js and Shadcn UI. Create beautiful documentation sites with MDX, customizable themes, and built-in components.
+
+## Features
+
+- **Modern Stack**: Built with Next.js and Shadcn UI for a modern development experience
+- **MDX Support**: Write documentation using MDX for rich content with React components
+- **Dark Mode**: Built-in dark mode support with system preference detection
+- **Customizable**: Extensive configuration options for branding and layout
+- **Responsive**: Mobile-first design that works on all devices
+- **SEO Friendly**: Optimized for search engines with proper meta tags
+- **TypeScript**: Full TypeScript support for better development experience
+- **Component Library**: Pre-built components for common documentation needs
+
+## Quick Start
+
+1. Clone the repository:
+
+```bash filename="Terminal"
+git clone https://github.com/yourusername/docs
+cd docs
+```
+
+2. Install dependencies:
+```bash filename="Terminal"
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Configure your site:
+```js filename="docsConfig.js"
+// docsConfig.js
+export const docsConfig = {
+  site: {
+    title: 'Your Documentation',
+    description: 'Your site description',
+    // ... other configurations
+  }
+}
+```
+
+
+4. Start the development server:
+```bash filename="Terminal"
+npm run dev
+```
+
+
+Visit `http://localhost:3000` to see your documentation site.
+
+## Key Concepts
+
+### Configuration
+
+The framework is highly configurable through the `docsConfig.js` file. You can customize:
+
+- Site metadata and branding
+- Navigation structure
+- Theme settings
+- Footer content
+- And more
+
+### Content Organization
+
+Documentation is written in MDX and stored in the `content/docs` directory:
+
+```txt filename="Directory Structure"
+content/
+  docs/
+    introduction.mdx
+    installation.mdx
+    features/
+      mdx.mdx
+      components.mdx
+    guides/
+      adding-pages.mdx
+```
+
+### Built-in Components
+
+The framework includes several built-in components for common documentation needs:
+
+<Alert>
+  <AlertTitle>Note</AlertTitle>
+  <AlertDescription>
+    Components can be used directly in your MDX files without additional imports.
+  </AlertDescription>
+</Alert>
+
+<Tabs defaultValue="button">
+  <TabsList>
+    <TabsTrigger value="button">Button</TabsTrigger>
+    <TabsTrigger value="alert">Alert</TabsTrigger>
+    <TabsTrigger value="tabs">Tabs</TabsTrigger>
+  </TabsList>
+  <TabsContent value="button">
+    ```jsx filename="Button.jsx"
+    <Button>Click me</Button>
+    ```
+    <div className="mt-4">
+      <Button>Click me</Button>
+    </div>
+  </TabsContent>
+  <TabsContent value="alert">
+    ```jsx filename="Alert.jsx"
+    <Alert>
+      <AlertTitle>Title</AlertTitle>
+      <AlertDescription>Description</AlertDescription>
+    </Alert>
+    ```
+  </TabsContent>
+  <TabsContent value="tabs">
+    ```jsx filename="Tabs.jsx"
+    <Tabs>
+      <TabsList>
+        <TabsTrigger>Tab 1</TabsTrigger>
+      </TabsList>
+      <TabsContent>Content 1</TabsContent>
+    </Tabs>
+    ```
+  </TabsContent>
+</Tabs>
+
+## Next Steps
+
+- Read the [Installation](/docs/installation) guide for detailed setup instructions
+- Learn about [Configuration](/docs/configuration) options
+- Explore available [Components](/docs/features/components)
+- Check out the [Guides](/docs/guides/adding-pages) for common tasks 

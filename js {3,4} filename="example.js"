@@ -1,0 +1,5 @@
+function example() {
+  const x = 1
+  // This line will be highlighted
+  return x + 2
+} 

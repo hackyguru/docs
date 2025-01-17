@@ -1,0 +1,186 @@
+---
+title: Configuration
+description: Configure your documentation site with docsConfig.js.
+---
+
+# Configuration
+
+The framework is configured through the `docsConfig.js` file in your project root. This guide explains all available configuration options.
+
+## Site Configuration
+
+Configure your site's metadata, navigation, and appearance:
+
+```js filename="docsConfig.js"
+export const docsConfig = {
+  // Site metadata
+  site: {
+    title: 'Your Documentation',
+    description: 'Documentation site built with Next.js',
+    url: 'https://your-site.com',
+  },
+  
+  // Navigation links
+  mainNav: [
+    {
+      title: 'Documentation',
+      href: '/docs',
+    },
+    {
+      title: 'GitHub',
+      href: 'https://github.com/yourusername/docs',
+      external: true,
+    },
+  ],
+  
+  // Sidebar navigation
+  sidebarNav: [
+    {
+      title: 'Getting Started',
+      items: [
+        {
+          title: 'Introduction',
+          href: '/docs/introduction',
+        },
+        {
+          title: 'Installation',
+          href: '/docs/installation',
+        },
+      ],
+    },
+    {
+      title: 'Features',
+      items: [
+        {
+          title: 'MDX Support',
+          href: '/docs/features/mdx',
+        },
+        {
+          title: 'Components',
+          href: '/docs/features/components',
+        },
+      ],
+    },
+  ],
+}
+```
+
+## Environment Variables
+
+Set up environment variables in your `.env` file:
+
+```bash filename=".env"
+# Site URL
+NEXT_PUBLIC_SITE_URL=https://your-site.com
+
+# Analytics (optional)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+```
+
+## Custom Theme
+
+Customize the theme in your `tailwind.config.js`:
+
+```js filename="tailwind.config.js"
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ['class'],
+  content: ['./src/**/*.{js,jsx,ts,tsx,mdx}'],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+      },
+      colors: {
+        // Your custom colors
+        brand: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          // ... other shades
+        },
+      },
+    },
+  },
+}
+```
+
+## Next.js Configuration
+
+Customize Next.js behavior in `next.config.js`:
+
+```js filename="next.config.js"
+const withMDX = require('@next/mdx')()
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  // Additional Next.js config options
+}
+
+module.exports = withMDX(nextConfig)
+```
+
+## TypeScript Configuration
+
+Configure TypeScript in `tsconfig.json`:
+
+```json filename="tsconfig.json"
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+## ESLint Configuration
+
+Set up ESLint rules in `.eslintrc.json`:
+
+```json filename=".eslintrc.json"
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error"
+  }
+}
+```
+
+## Prettier Configuration
+
+Configure code formatting in `.prettierrc`:
+
+```json filename=".prettierrc"
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5"
+}
+``` 

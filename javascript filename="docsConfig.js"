@@ -1,0 +1,5 @@
+export const docsConfig = {
+  title: 'Your Documentation',
+  description: 'Your documentation description',
+  // ... other configurations
+} 
