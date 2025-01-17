@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router'
+"use client"
+
+import { usePathname } from 'next/navigation'
 import { docsConfig } from '@/docsConfig'
 import { DocsSidebar } from '@/components/docs/sidebar'
 import { DocsHeader } from '@/components/docs/header'
@@ -8,8 +10,8 @@ import { getBreadcrumbs } from '@/lib/breadcrumbs'
 import { Separator } from '@/components/ui/separator'
 
 export function DocsLayout({ children }) {
-  const router = useRouter()
-  const breadcrumbs = getBreadcrumbs(router.asPath)
+  const pathname = usePathname()
+  const breadcrumbs = getBreadcrumbs(pathname)
 
   return (
     <div className="flex min-h-screen flex-col">

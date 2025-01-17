@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 export function DocsSidebar({ items = [], className }) {
-  const router = useRouter()
+  const pathname = usePathname()
 
   return (
     <div className={cn("relative", className)}>
@@ -21,7 +21,7 @@ export function DocsSidebar({ items = [], className }) {
                   className={cn(
                     "flex w-full items-center rounded-md py-1.5 pl-2",
                     "transition-colors",
-                    router.asPath === item.href
+                    pathname === item.href
                       ? "bg-accent text-accent-foreground font-medium"
                       : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground"
                   )}
