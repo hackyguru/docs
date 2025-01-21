@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from 'next/navigation'
-import { docsConfig } from '../../docsConfig'
+import { docsConfig } from '../../config/docs'
 import { DocsSidebar } from '../docs/sidebar'
 import { DocsHeader } from '../docs/header'
 import { ScrollArea } from '../ui/scroll-area'
@@ -48,8 +48,12 @@ export function DocsLayout({ children }) {
                   transition={{ delay: 0.2 }}
                   className="flex flex-col gap-4"
                 >
-                  <Breadcrumbs segments={breadcrumbs} />
-                  <Separator className="bg-white dark:bg-border" />
+                  <div className="sticky top-[3.75rem] z-30 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                    <div className="px-4 pb-4 md:px-8 md:pb-6">
+                      <Breadcrumbs segments={breadcrumbs} />
+                      <Separator className="bg-white dark:bg-border mt-4" />
+                    </div>
+                  </div>
                 </motion.div>
               )}
               <div className="overflow-x-auto">

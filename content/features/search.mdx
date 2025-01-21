@@ -1,188 +1,237 @@
+---
+title: Search
+description: Learn how to implement and configure search functionality in your documentation.
+tags: ["features", "search", "algolia"]
+---
+
 # Search
 
-The documentation framework includes powerful search functionality powered by Algolia DocSearch, allowing users to quickly find the content they need.
+The framework includes built-in search functionality powered by Algolia DocSearch, providing fast and accurate content search across your documentation.
 
 ## Setup
 
-### 1. Configure Algolia
+### 1. Create Algolia Account
 
-First, sign up for [Algolia](https://www.algolia.com/) and create a new application. Then configure the search in `docsConfig.js`:
+First, sign up for a free [Algolia account](https://www.algolia.com/doc/guides/getting-started/quick-start/) and create a new application.
 
-```js filename="docsConfig.js"
+### 2. Configure Environment Variables
+
+Add your Algolia credentials to `.env.local`:
+
+```bash
+NEXT_PUBLIC_ALGOLIA_APP_ID=your_app_id
+NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY=your_search_api_key
+NEXT_PUBLIC_ALGOLIA_INDEX_NAME=your_index_name
+```
+
+### 3. Configure DocSearch
+
+Update your `docsConfig.js` to include search configuration:
+
+```js
 export const docsConfig = {
-  features: {
-    search: {
-      enabled: true,
-      type: 'algolia',
-      config: {
-        appId: 'YOUR_APP_ID',
-        apiKey: 'YOUR_SEARCH_API_KEY',
-        indexName: 'YOUR_INDEX_NAME',
+  search: {
+    provider: 'algolia',
+    options: {
+      appId: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+      apiKey: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY,
+      indexName: process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME,
+    },
+  },
+}
+```
+
+## Usage
+
+### Search Modal
+
+The search modal can be opened using:
+- Keyboard shortcut: `⌘K` (Mac) or `Ctrl+K` (Windows)
+- Click the search icon in the header
+- Focus the search input
+
+```jsx
+import { useSearch } from '@/hooks/use-search'
+
+function SearchButton() {
+  const { onOpen } = useSearch()
+  
+  return (
+    <button onClick={onOpen}>
+      Search
+    </button>
+  )
+}
+```
+
+### Search Results
+
+Results are displayed in a modal with:
+- Page title and section
+- Content preview
+- Highlighted matching terms
+- Keyboard navigation support
+
+## Customization
+
+### Search Modal Appearance
+
+Customize the search modal in your theme:
+
+```js
+export const docsConfig = {
+  search: {
+    modal: {
+      width: 'max-w-2xl',
+      height: 'h-[80vh]',
+      placement: 'top',
+    },
+  },
+}
+```
+
+### Result Styling
+
+Style search results using Tailwind classes:
+
+```jsx
+<div className="search-result">
+  <h3 className="text-lg font-semibold">
+    {hit.title}
+  </h3>
+  <p className="text-sm text-muted-foreground">
+    {hit.description}
+  </p>
+</div>
+```
+
+### Keyboard Shortcuts
+
+Configure custom keyboard shortcuts:
+
+```js
+export const docsConfig = {
+  search: {
+    shortcuts: {
+      open: ['⌘', 'K'],
+      close: ['Esc'],
+      navigate: ['↑', '↓'],
+      select: ['Enter'],
+    },
+  },
+}
+```
+
+## Advanced Configuration
+
+### Custom Search Parameters
+
+Configure Algolia search parameters:
+
+```js
+export const docsConfig = {
+  search: {
+    options: {
+      searchParameters: {
+        attributesToRetrieve: [
+          'title',
+          'description',
+          'content',
+          'url',
+        ],
+        attributesToHighlight: [
+          'title',
+          'description',
+          'content',
+        ],
+        snippetEllipsisText: '...',
+        distinct: true,
       },
     },
   },
 }
 ```
 
-### 2. Add Search Component
+### Custom Hit Component
 
-The search component is automatically added to the header. You can customize its appearance and behavior:
-
-```jsx filename="components/search.tsx"
-<Search
-  placeholder="Search documentation..."
-  className="w-full lg:w-64"
-  overlayClassName="fixed inset-0 bg-black/50"
-/>
-```
-
-## Features
-
-### Keyboard Shortcuts
-
-- Press <kbd>⌘</kbd> + <kbd>K</kbd> (Mac) or <kbd>Ctrl</kbd> + <kbd>K</kbd> (Windows) to open search
-- Use <kbd>↑</kbd> and <kbd>↓</kbd> to navigate results
-- Press <kbd>Enter</kbd> to select a result
-- Press <kbd>Esc</kbd> to close search
-
-### Search Syntax
-
-The search supports various query types:
-
-```txt
-# Search in title
-title:installation
-
-# Search in content
-content:"code blocks"
-
-# Combine searches
-title:components content:button
-
-# Exact match
-"getting started"
-```
-
-### Search Results
-
-Results are displayed with:
-- Page title and section
-- Content preview
-- Breadcrumb navigation
-- Highlighted matching terms
-
-<Alert>
-  <AlertTitle>Note</AlertTitle>
-  <AlertDescription>
-    Search results are updated within 24 hours of content changes.
-  </AlertDescription>
-</Alert>
-
-## Customization
-
-### Styling
-
-Customize the search modal appearance:
+Create a custom hit component:
 
 ```jsx
-<Search
-  modalClassName="rounded-lg border shadow-lg"
-  inputClassName="h-12 px-4 rounded-md"
-  resultsClassName="mt-2 space-y-1"
-/>
-```
-
-### Custom Search Provider
-
-You can implement your own search provider:
-
-```tsx filename="lib/search.ts"
-export async function searchContent(query: string) {
-  // Implement your search logic
-  const results = await customSearch(query)
-  return results
+function CustomHit({ hit, components }) {
+  return (
+    <div className="p-4 hover:bg-muted">
+      <h3 className="text-lg font-semibold">
+        <components.Highlight hit={hit} attribute="title" />
+      </h3>
+      <p className="text-sm text-muted-foreground">
+        <components.Snippet hit={hit} attribute="content" />
+      </p>
+    </div>
+  )
 }
-```
 
-Then configure it:
-
-```js filename="docsConfig.js"
-features: {
+export const docsConfig = {
   search: {
-    enabled: true,
-    type: 'custom',
-    provider: searchContent,
-  },
-}
-```
-
-## Search Index
-
-### Configuring Index
-
-Control what gets indexed:
-
-```js filename="docsConfig.js"
-features: {
-  search: {
-    indexing: {
-      includeContent: true,
-      includePath: true,
-      includeTitle: true,
-      includeDescription: true,
+    components: {
+      Hit: CustomHit,
     },
   },
 }
 ```
 
-### Custom Fields
+### Multiple Indices
 
-Add custom fields to the search index:
+Search across multiple indices:
 
 ```js
-export const metadata = {
-  title: 'Search',
-  tags: ['search', 'algolia', 'documentation'],
-  category: 'features',
+export const docsConfig = {
+  search: {
+    options: {
+      indices: [
+        {
+          name: 'docs',
+          title: 'Documentation',
+        },
+        {
+          name: 'blog',
+          title: 'Blog Posts',
+        },
+      ],
+    },
+  },
 }
 ```
 
 ## Best Practices
 
-1. **Relevant Content**: Ensure your content is well-structured with clear headings
-2. **Meaningful Titles**: Use descriptive page titles and section headings
-3. **Meta Description**: Add clear meta descriptions to improve search results
-4. **Regular Updates**: Keep your search index up to date
-5. **Monitor Usage**: Track popular searches to improve content
+1. **Content Structure**: Organize content with clear headings and sections
+2. **Metadata**: Include descriptive titles and descriptions
+3. **Index Updates**: Keep search index in sync with content changes
+4. **Performance**: Optimize search parameters for speed
+5. **Accessibility**: Ensure keyboard navigation works properly
+6. **Mobile**: Test search experience on mobile devices
 
-## Examples
+## Troubleshooting
 
-### Basic Search
+### Common Issues
 
-```jsx
-<Search placeholder="Search..." />
-```
+1. **Search Not Working**
+   - Check Algolia credentials
+   - Verify index exists and has content
+   - Check browser console for errors
 
-### Advanced Search
+2. **Results Not Updated**
+   - Rebuild and reindex content
+   - Clear browser cache
+   - Check indexing configuration
 
-```jsx
-<Search
-  placeholder="Search docs..."
-  hotkeys={['command+k', 'ctrl+k']}
-  maxResults={10}
-  groupResults={true}
-  searchOptions={{
-    fuzzy: true,
-    boost: {
-      title: 2,
-      content: 1,
-    },
-  }}
-/>
-```
+3. **Performance Issues**
+   - Optimize search parameters
+   - Reduce number of searchable attributes
+   - Use distinct results
 
 ## Next Steps
 
-- Set up [Analytics](/guides/analytics) to track search usage
-- Learn about [SEO](/guides/seo) optimization
-- Explore [Custom Components](/guides/custom-components) 
+- Learn about [MDX Support](/features/mdx)
+- Explore [Components](/components)
+- Check out [Configuration](/configuration) options 

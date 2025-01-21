@@ -5,39 +5,43 @@ description: A modern documentation framework built with Next.js and Shadcn UI.
 
 # Introduction
 
-Welcome to the documentation framework built with Next.js and Shadcn UI. This modern documentation site generator helps you create beautiful, fast, and accessible documentation sites with minimal setup.
+Welcome to our modern documentation framework built with Next.js and MDX. This framework provides a beautiful, responsive, and feature-rich environment for creating and maintaining documentation.
 
-## Features
+## Key Features
 
-- 📝 **MDX Support** - Write content in MDX with full support for React components
-- 🎨 **Beautiful UI** - Built with Shadcn UI components for a modern look
-- 🌙 **Dark Mode** - Automatic dark mode support with system preference detection
-- 📱 **Responsive** - Fully responsive design that works on all devices
-- 🔍 **On This Page** - Automatic table of contents with active section highlighting
-- 🧭 **Navigation** - Customizable sidebar and top navigation
-- 🔎 **Search** - Full-text search support (coming soon)
-- ⚡ **Fast** - Built on Next.js for optimal performance
-- ♿ **Accessible** - WCAG compliant and keyboard navigable
-- 🎯 **SEO Optimized** - Built-in SEO components and meta tags
+- **MDX Support**: Write documentation using Markdown with JSX components
+- **Beautiful UI**: Clean and modern interface with light/dark mode support
+- **Full-text Search**: Built-in search functionality for your documentation
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Code Highlighting**: Syntax highlighting for code blocks with copy functionality
+- **Navigation**: Customizable sidebar, breadcrumbs, and "On This Page" navigation
+- **Media Support**: Embed images and YouTube videos in your documentation
+- **Customizable**: Fully configurable through a central configuration file
 
 ## Getting Started
 
-To start using this documentation framework:
+1. **Installation**: Start by [installing](/installation) the framework
+2. **Configuration**: Learn how to [configure](/configuration) your documentation
+3. **Writing Content**: Begin [writing content](/guides/writing-content) using MDX
+4. **Customization**: [Customize](/guides/customization) the look and feel
 
-1. First, install the framework using npm:
-```bash
-npm create next-app@latest my-docs -- --typescript --tailwind
-cd my-docs
+## Framework Structure
+
+```txt
+docs/
+├── content/        # Your documentation content (MDX files)
+├── components/     # React components
+├── config/        # Configuration files
+├── lib/           # Utility functions
+└── public/        # Static assets
 ```
 
-2. Install the required dependencies:
-```bash
-npm install @radix-ui/react-icons lucide-react next-themes
-```
+## Next Steps
 
-3. Configure your documentation in `docsConfig.js`
-
-4. Start adding your content in MDX files
+- Read the [Installation Guide](/installation) to set up your documentation
+- Learn about [MDX Support](/features/mdx) and available components
+- Explore [Configuration Options](/configuration) to customize your site
+- Check out our [Guides](/guides/getting-started) for detailed tutorials
 
 ## Project Structure
 
@@ -49,13 +53,6 @@ my-docs/
 ├── public/           # Static assets
 └── docsConfig.js     # Site configuration
 ```
-
-## Next Steps
-
-- Continue to the [Installation](/installation) guide for detailed setup instructions
-- Learn about [Configuration](/configuration) options
-- Explore available [Components](/components/alert)
-- Read our [Guides](/guides/adding-pages) for advanced usage
 
 ## Key Concepts
 
@@ -132,7 +129,7 @@ The framework includes several built-in components for common documentation need
 
 ## Next Steps
 
-- Read the [Installation](/docs/installation) guide for detailed setup instructions
-- Learn about [Configuration](/docs/configuration) options
-- Explore available [Components](/docs/features/components)
-- Check out the [Guides](/docs/guides/adding-pages) for common tasks 
+- Read the [Installation Guide](/docs/installation) for detailed setup instructions
+- Learn about [MDX Support](/docs/features/mdx) and available components
+- Explore [Configuration Options](/docs/configuration) to customize your site
+- Check out our [Guides](/docs/guides/getting-started) for detailed tutorials 

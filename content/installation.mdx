@@ -1,7 +1,7 @@
 ---
 title: Installation
 description: Learn how to install and set up the documentation framework.
-tags: ["getting-started","installation"]
+tags: ["getting-started", "installation"]
 ---
 
 # Installation
@@ -11,19 +11,18 @@ This guide will walk you through setting up your documentation site from scratch
 ## Prerequisites
 
 Before you begin, make sure you have:
-
 - Node.js 18.0 or later
 - npm, yarn, or pnpm package manager
 - Basic knowledge of React and Next.js
 
 ## Quick Start
 
-### 1. Create a New Next.js Project
+### 1. Create a New Project
 
-Start by creating a new Next.js project with TypeScript and Tailwind CSS:
+Start by creating a new Next.js project:
 
 ```bash
-npm create next-app@latest my-docs -- --typescript --tailwind
+npx create-next-app@latest my-docs --typescript --tailwind --app
 cd my-docs
 ```
 
@@ -32,14 +31,35 @@ cd my-docs
 Install the required dependencies:
 
 ```bash
-npm install @radix-ui/react-icons lucide-react next-themes @radix-ui/react-scroll-area @radix-ui/react-separator @radix-ui/react-slot clsx tailwind-merge
+npm install @radix-ui/react-icons lucide-react next-themes @radix-ui/react-scroll-area @radix-ui/react-separator @radix-ui/react-slot clsx tailwind-merge @radix-ui/react-dialog framer-motion next-mdx-remote gray-matter
 ```
 
-### 3. Configure Tailwind CSS
+### 3. Configure Next.js
+
+Update your `next.config.js`:
+
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+}
+
+module.exports = nextConfig
+```
+
+### 4. Configure Tailwind CSS
 
 Update your `tailwind.config.js`:
 
-```js filename="tailwind.config.js"
+```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -53,8 +73,6 @@ module.exports = {
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -65,10 +83,6 @@ module.exports = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
@@ -76,14 +90,6 @@ module.exports = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
@@ -97,11 +103,11 @@ module.exports = {
 }
 ```
 
-### 4. Add Base Styles
+### 5. Add Base Styles
 
 Create or update your `globals.css`:
 
-```css filename="styles/globals.css"
+```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,10 +116,6 @@ Create or update your `globals.css`:
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
@@ -122,21 +124,13 @@ Create or update your `globals.css`:
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
     --radius: 0.5rem;
   }
  
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
@@ -145,11 +139,7 @@ Create or update your `globals.css`:
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
   }
 }
 
@@ -163,16 +153,15 @@ Create or update your `globals.css`:
 }
 ```
 
-### 5. Add Configuration
+### 6. Create Configuration
 
-Create `docsConfig.js` in your project root:
+Create `config/docs.js` in your project:
 
-```js filename="docsConfig.js"
+```js
 export const docsConfig = {
   site: {
     title: 'Your Documentation',
     description: 'Documentation site built with Next.js',
-    favicon: '/favicon.ico',
   },
   theme: {
     accentColor: '#0070f3',
@@ -181,11 +170,27 @@ export const docsConfig = {
       mono: 'JetBrains Mono',
     },
   },
-  // Add more configuration as needed
+  sidebar: {
+    groups: [
+      {
+        title: 'Getting Started',
+        items: [
+          {
+            title: 'Introduction',
+            href: '/introduction',
+          },
+          {
+            title: 'Installation',
+            href: '/installation',
+          },
+        ],
+      },
+    ],
+  },
 }
 ```
 
-### 6. Start Development Server
+### 7. Start Development Server
 
 Run the development server:
 
@@ -195,99 +200,34 @@ npm run dev
 
 Visit `http://localhost:3000` to see your site.
 
+## Project Structure
+
+After installation, your project structure should look like this:
+
+```txt
+my-docs/
+├── app/               # Next.js app directory
+├── components/        # React components
+├── content/          # Documentation content (MDX)
+├── config/           # Configuration files
+├── lib/              # Utility functions
+├── public/           # Static assets
+├── styles/           # CSS styles
+├── next.config.js    # Next.js configuration
+└── tailwind.config.js # Tailwind configuration
+```
+
 ## Next Steps
 
 Now that you have your documentation site set up:
 
-1. Configure your site in `docsConfig.js`
+1. Configure your site in `config/docs.js`
 2. Add MDX content in the `content` directory
 3. Customize the theme and components
 4. Deploy your site
 
 For more details, check out:
 - [Configuration Guide](/configuration)
-- [Adding Pages Guide](/guides/adding-pages)
-- [Styling Guide](/guides/styling)
-- [Deployment Guide](/guides/deployment)
-
-## Project Structure
-
-```txt filename="Directory Structure"
-docs/
-├── app/               # Next.js app directory
-├── components/        # React components
-├── content/          # Documentation content
-│   └── docs/         # MDX files
-├── lib/              # Utility functions
-└── public/           # Static assets
-```
-
-## Adding Content
-
-1. Create new `.mdx` files in the `content/docs` directory
-2. Add frontmatter with metadata
-3. Write your content using Markdown and MDX
-4. Update `docsConfig.js` to include new pages in the sidebar
-
-## Configuration Options
-
-### Site Metadata
-```js filename="docsConfig.js"
-{
-  title: 'Your Site Title',
-  description: 'Your site description',
-  logo: {
-    light: '/logo-light.svg',
-    dark: '/logo-dark.svg',
-  }
-}
-```
-
-### Navigation Links
-```js filename="docsConfig.js"
-{
-  navigation: {
-    links: [
-      {
-        title: 'GitHub',
-        href: 'https://github.com',
-        external: true
-      }
-    ]
-  }
-}
-```
-
-### Sidebar Structure
-```js filename="docsConfig.js"
-{
-  sidebar: {
-    groups: [
-      {
-        title: 'Getting Started',
-        items: [
-          {
-            title: 'Introduction',
-            href: '/docs/introduction'
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-## Customizing Styles
-
-The documentation site uses Tailwind CSS for styling. You can customize the look and feel by:
-
-1. Modifying the Tailwind configuration
-2. Adding custom CSS in `styles/globals.css`
-3. Using Tailwind classes in your MDX content
-
-## Next Steps
-
-- Add more documentation pages
-- Customize the theme
-- Deploy your site
-- Set up a custom domain 
+- [Writing Content](/guides/writing-content)
+- [Customization](/guides/customization)
+- [Deployment](/guides/deployment) 

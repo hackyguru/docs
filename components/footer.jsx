@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { docsConfig } from "@/docsConfig"
+import { docsConfig } from "../config/docs"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 

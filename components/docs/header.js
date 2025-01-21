@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { DocsSidebar } from './sidebar'
-import { docsConfig } from '@/docsConfig'
+import { docsConfig } from '../../config/docs'
 import { cn } from '@/lib/utils'
 
 export function DocsHeader() {

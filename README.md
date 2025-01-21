@@ -1,40 +1,172 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Modern Documentation Framework
 
-## Getting Started
+A beautiful, feature-rich documentation framework built with Next.js, MDX, and Shadcn UI.
 
-First, run the development server:
+![Documentation Framework](public/og.png)
 
+## Features
+
+- 📝 **MDX Support** - Write content using MDX (Markdown + React components)
+- 🎨 **Beautiful UI** - Modern and clean interface using Shadcn UI components
+- 🌓 **Dark Mode** - Automatic dark mode with system preference support
+- 🔍 **Full-text Search** - Built-in search functionality
+- 📱 **Responsive** - Mobile-first design that works on all devices
+- ⚡ **Fast** - Optimized for performance and fast page loads
+- 🎯 **SEO Optimized** - Built-in SEO support with meta tags
+- 📊 **Analytics Ready** - Easy integration with your analytics platform
+- 🔧 **Customizable** - Highly configurable through a central config file
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 18.0 or later
+- npm, yarn, or pnpm
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/docs.git
+cd docs
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Start the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Project Structure
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```
+docs/
+├── components/     # React components
+├── content/        # Documentation content (MDX)
+│   ├── docs/       # Main documentation
+│   ├── guides/     # Guides and tutorials
+│   └── features/   # Feature documentation
+├── config/         # Configuration files
+├── lib/           # Utility functions
+├── pages/         # Next.js pages
+├── public/        # Static assets
+└── styles/        # Global styles
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Writing Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Add your documentation files in the `content` directory using MDX:
 
-## Learn More
+```mdx
+---
+title: Getting Started
+description: Learn how to use the documentation framework
+---
 
-To learn more about Next.js, take a look at the following resources:
+# Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+Welcome to our documentation...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Configuration
 
-## Deploy on Vercel
+Customize your documentation site in `config/docs.js`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```js
+export const docsConfig = {
+  site: {
+    title: 'Your Documentation',
+    description: 'Your documentation description',
+  },
+  // ... more configuration options
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Built-in Components
+
+The framework includes several built-in components:
+
+- `Alert` - For important notices and warnings
+- `Card` - For grouping related content
+- `Tabs` - For organizing content in tabs
+- `Code` - For code snippets with syntax highlighting
+- And many more...
+
+## Customization
+
+### Theme
+
+Customize colors, typography, and other theme settings in `tailwind.config.js`:
+
+```js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        // Your colors
+      },
+    },
+  },
+}
+```
+
+### Components
+
+Add or modify components in the `components` directory.
+
+## Deployment
+
+Deploy your documentation site to any platform that supports Next.js:
+
+- [Vercel](https://vercel.com)
+- [Netlify](https://netlify.com)
+- [AWS Amplify](https://aws.amazon.com/amplify/)
+
+Example deployment to Vercel:
+
+```bash
+vercel
+```
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+- 📚 [Documentation](https://yourdocs.com)
+- 🐛 [Issue Tracker](https://github.com/yourusername/docs/issues)
+- 💬 [Discord Community](https://discord.gg/yourinvite)
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org)
+- [Shadcn UI](https://ui.shadcn.com)
+- [MDX](https://mdxjs.com)
+- [Tailwind CSS](https://tailwindcss.com)
+
+## Author
+
+- Your Name ([@yourusername](https://twitter.com/yourusername))
+
+---
+
+Built with ♥ by [Your Name](https://yourwebsite.com)
