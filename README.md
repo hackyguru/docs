@@ -27,7 +27,7 @@ A beautiful, feature-rich documentation framework built with Next.js, MDX, and S
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/docs.git
+git clone https://github.com/hackyguru/docs.git
 cd docs
 ```
 
@@ -152,9 +152,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📚 [Documentation](https://yourdocs.com)
-- 🐛 [Issue Tracker](https://github.com/yourusername/docs/issues)
-- 💬 [Discord Community](https://discord.gg/yourinvite)
+- 📚 [Documentation](https://docs.hackyguru.com)
+- 🐛 [Issue Tracker](https://github.com/hackyguru/docs/issues)
+- 💬 [Community](https://github.com/hackyguru/docs/discussions)
 
 ## Acknowledgments
 
@@ -165,8 +165,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-- Your Name ([@yourusername](https://twitter.com/yourusername))
+- Guru ([@hackyguru](https://github.com/hackyguru))
 
 ---
 
-Built with ♥ by [Your Name](https://yourwebsite.com)
+Built with ♥ by [Guru](https://github.com/hackyguru)
