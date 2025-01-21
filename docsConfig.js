@@ -13,6 +13,39 @@ export const docsConfig = {
       height: 24,
       width: 24,
     },
+    // On This Page navigation configuration
+    onThisPage: true,
+  },
+
+  // Landing page configuration
+  landing: {
+    title: "Build beautiful documentation sites with ease",
+    description: "A modern documentation framework built with Next.js and Shadcn UI. Fast, accessible, and beautiful by default.",
+    media: {
+      type: "video", // or "image"
+      url: "https://www.youtube.com/embed/your-video-id", // or "/path/to/your/image.jpg"
+      aspectRatio: "16/9",
+    },
+    cta: [
+      {
+        title: "Get Started",
+        description: "Learn how to install and set up your documentation site.",
+        href: "/introduction",
+        icon: "rocket", // You can use any icon name from your icon set
+      },
+      {
+        title: "Components",
+        description: "Explore our beautiful, accessible components.",
+        href: "/features/components",
+        icon: "component",
+      },
+      {
+        title: "Guides",
+        description: "Follow our guides to customize your documentation.",
+        href: "/guides/adding-pages",
+        icon: "book",
+      },
+    ],
   },
 
   // Theme configuration
@@ -31,7 +64,7 @@ export const docsConfig = {
     links: [
       {
         title: 'Documentation',
-        href: '/',
+        href: '/introduction',
       },
       {
         title: 'GitHub',
@@ -56,6 +89,7 @@ export const docsConfig = {
           {
             title: 'Introduction',
             href: '/introduction',
+            isDefault: false,
           },
           {
             title: 'Installation',
@@ -86,6 +120,22 @@ export const docsConfig = {
             title: 'Navigation',
             href: '/features/navigation',
           },
+          {
+            title: 'Search',
+            href: '/features/search',
+          },
+          {
+            title: 'Code Blocks',
+            href: '/features/code-blocks',
+          },
+          {
+            title: 'Callouts',
+            href: '/features/callouts',
+          },
+          {
+            title: 'SEO',
+            href: '/features/seo',
+          },
         ],
       },
       {
@@ -106,6 +156,14 @@ export const docsConfig = {
           {
             title: 'Tabs',
             href: '/components/tabs',
+          },
+          {
+            title: 'Callout',
+            href: '/components/callout',
+          },
+          {
+            title: 'Code',
+            href: '/components/code',
           },
         ],
       },
@@ -128,6 +186,14 @@ export const docsConfig = {
             title: 'Deployment',
             href: '/guides/deployment',
           },
+          {
+            title: 'Analytics',
+            href: '/guides/analytics',
+          },
+          {
+            title: 'SEO',
+            href: '/guides/seo',
+          },
         ],
       },
     ],
@@ -136,7 +202,7 @@ export const docsConfig = {
   // Footer configuration
   footer: {
     // Credits shown in the footer
-    credits: 'Built with Next.js and Shadcn UI',
+    credits: 'Open Source ♡ @hackyguru',
     // Links shown in the footer
     links: [
       {
@@ -170,5 +236,61 @@ export const docsConfig = {
         icon: 'discord',
       },
     ],
+  },
+
+  // Features configuration
+  features: {
+    search: {
+      enabled: true,
+      type: 'algolia',
+      config: {
+        appId: 'YOUR_APP_ID',
+        apiKey: 'YOUR_SEARCH_API_KEY',
+        indexName: 'YOUR_INDEX_NAME',
+      },
+    },
+    darkMode: true,
+    codeBlocks: {
+      enabled: true,
+      copyButton: true,
+      lineNumbers: true,
+      highlightLines: true,
+      showLanguage: true,
+      wrap: false,
+    },
+    callouts: {
+      note: {
+        icon: 'info',
+        color: 'blue',
+      },
+      warning: {
+        icon: 'alert-triangle',
+        color: 'yellow',
+      },
+      danger: {
+        icon: 'alert-octagon',
+        color: 'red',
+      },
+    },
+    analytics: {
+      provider: 'google',
+      googleAnalyticsId: 'G-XXXXXXXXXX',
+    },
+    feedback: {
+      enabled: true,
+      collection: 'feedback',
+    },
+    editLink: {
+      enabled: true,
+      pattern: 'https://github.com/yourusername/docs/edit/main/content/:path',
+    },
+    lastUpdated: true,
+    pagination: true,
+    tableOfContents: {
+      depth: 3,
+      minHeadings: 4,
+    },
+    mobileMenu: true,
+    scrollToTop: true,
   },
 } 

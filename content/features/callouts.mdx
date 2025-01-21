@@ -1,0 +1,200 @@
+# Callouts
+
+Callouts help highlight important information in your documentation. They come in different styles and can include icons, titles, and custom content.
+
+## Basic Usage
+
+The simplest way to use a callout is with the `Alert` component:
+
+<Alert>
+  <AlertTitle>Note</AlertTitle>
+  <AlertDescription>
+    This is a basic callout with a title and description.
+  </AlertDescription>
+</Alert>
+
+```jsx
+<Alert>
+  <AlertTitle>Note</AlertTitle>
+  <AlertDescription>
+    This is a basic callout with a title and description.
+  </AlertDescription>
+</Alert>
+```
+
+## Callout Types
+
+### Default
+
+<Alert>
+  <AlertTitle>Note</AlertTitle>
+  <AlertDescription>
+    Use the default style for general information and notes.
+  </AlertDescription>
+</Alert>
+
+### Warning
+
+<Alert variant="warning">
+  <AlertTitle>Warning</AlertTitle>
+  <AlertDescription>
+    Use warning callouts to highlight potential issues or important considerations.
+  </AlertDescription>
+</Alert>
+
+### Destructive
+
+<Alert variant="destructive">
+  <AlertTitle>Error</AlertTitle>
+  <AlertDescription>
+    Use destructive callouts for critical warnings or error messages.
+  </AlertDescription>
+</Alert>
+
+## Configuration
+
+Configure callout styles in `docsConfig.js`:
+
+```js filename="docsConfig.js"
+export const docsConfig = {
+  features: {
+    callouts: {
+      note: {
+        icon: 'info',
+        color: 'blue',
+      },
+      warning: {
+        icon: 'alert-triangle',
+        color: 'yellow',
+      },
+      danger: {
+        icon: 'alert-octagon',
+        color: 'red',
+      },
+    },
+  },
+}
+```
+
+## Custom Styling
+
+### With Tailwind Classes
+
+```jsx
+<Alert className="border-blue-500 bg-blue-50 dark:bg-blue-950">
+  <AlertTitle className="text-blue-900 dark:text-blue-100">
+    Custom Style
+  </AlertTitle>
+  <AlertDescription className="text-blue-800 dark:text-blue-200">
+    This callout has custom colors.
+  </AlertDescription>
+</Alert>
+```
+
+### With Icons
+
+```jsx
+<Alert>
+  <Icon name="info" className="h-4 w-4" />
+  <AlertTitle>With Icon</AlertTitle>
+  <AlertDescription>
+    This callout includes an icon.
+  </AlertDescription>
+</Alert>
+```
+
+## Advanced Usage
+
+### Nested Content
+
+Callouts can contain rich content including lists, code blocks, and other components:
+
+<Alert>
+  <AlertTitle>Rich Content Example</AlertTitle>
+  <AlertDescription>
+    <p className="mt-2">Here's what you need to know:</p>
+    <ul className="mt-2 list-disc list-inside">
+      <li>Point one about the feature</li>
+      <li>Another important consideration</li>
+      <li>Final key point to remember</li>
+    </ul>
+    ```js
+    // Even code blocks work!
+    function example() {
+      return "Hello from callout!"
+    }
+    ```
+  </AlertDescription>
+</Alert>
+
+### Interactive Elements
+
+Callouts can include interactive elements:
+
+<Alert>
+  <AlertTitle>Interactive Example</AlertTitle>
+  <AlertDescription>
+    <div className="mt-2">
+      <Button>Click Me</Button>
+    </div>
+  </AlertDescription>
+</Alert>
+
+## Best Practices
+
+1. **Use Sparingly**: Don't overuse callouts - they should highlight truly important information
+2. **Clear Titles**: Use descriptive titles that clearly indicate the callout's purpose
+3. **Consistent Style**: Maintain consistent usage of callout types across your documentation
+4. **Concise Content**: Keep callout content brief and to the point
+5. **Appropriate Type**: Use the right callout type for the message's importance level
+
+## Examples
+
+### Documentation Note
+
+<Alert>
+  <AlertTitle>Documentation Note</AlertTitle>
+  <AlertDescription>
+    This feature is available in version 2.0.0 and later.
+  </AlertDescription>
+</Alert>
+
+### Version Warning
+
+<Alert variant="warning">
+  <AlertTitle>Version Warning</AlertTitle>
+  <AlertDescription>
+    This API will be deprecated in the next major version.
+    Please migrate to the new API described below.
+  </AlertDescription>
+</Alert>
+
+### Security Alert
+
+<Alert variant="destructive">
+  <AlertTitle>Security Alert</AlertTitle>
+  <AlertDescription>
+    Never commit API keys or sensitive credentials to your repository.
+    Use environment variables instead.
+  </AlertDescription>
+</Alert>
+
+### With Code Example
+
+<Alert>
+  <AlertTitle>Usage Example</AlertTitle>
+  <AlertDescription>
+    Here's how to use the feature:
+    ```jsx
+    function MyComponent() {
+      return <div>Example code</div>
+    }
+    ```
+  </AlertDescription>
+</Alert>
+
+## Next Steps
+
+- Explore [Components](/features/components)
+- Learn about [MDX Support](/features/mdx)
+- Check out [Code Blocks](/features/code-blocks) 

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { getHeadingId } from '@/lib/utils'
+import { useState, useEffect } from 'react'
 
 const Code = ({ children, className }) => {
   // Check if this is inline code or a code block
@@ -51,20 +52,28 @@ const Code = ({ children, className }) => {
 }
 
 export const components = {
-  h1: ({ className, children, ...props }) => (
-    <h1
-      className={cn('mt-2 scroll-m-20 text-4xl font-bold', className)}
-      {...props}
-    >
-      {children}
-    </h1>
+  pre: ({ className, ...props }) => (
+    <div className={cn('my-8 rounded-lg', className)}>
+      <pre {...props} />
+    </div>
   ),
+  code: Code,
+  h1: ({ className, children, ...props }) => {
+    return (
+      <h1
+        className={cn('mt-8 scroll-m-20 text-4xl font-bold', className)}
+        {...props}
+      >
+        {children}
+      </h1>
+    )
+  },
   h2: ({ className, children, ...props }) => {
     const id = getHeadingId(children)
     return (
       <h2
         id={id}
-        className={cn('mt-12 scroll-m-20 text-2xl font-semibold', className)}
+        className={cn('mt-12 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0', className)}
         {...props}
       >
         {children}
@@ -76,7 +85,7 @@ export const components = {
     return (
       <h3
         id={id}
-        className={cn('mt-8 scroll-m-20 text-xl font-semibold', className)}
+        className={cn('mt-8 scroll-m-20 text-xl font-semibold tracking-tight', className)}
         {...props}
       >
         {children}
@@ -85,27 +94,29 @@ export const components = {
   },
   h4: ({ className, children, ...props }) => (
     <h4
-      className={cn('mt-8 scroll-m-20 text-lg font-semibold', className)}
+      className={cn('mt-8 scroll-m-20 text-lg font-semibold tracking-tight', className)}
       {...props}
     >
       {children}
     </h4>
   ),
-  p: ({ className, children, ...props }) => (
-    <p
-      className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
-      {...props}
-    >
-      {children}
-    </p>
-  ),
+  p: ({ className, children, ...props }) => {
+    return (
+      <p
+        className={cn('leading-7 [&:not(:first-child)]:mt-6', className)}
+        {...props}
+      >
+        {children}
+      </p>
+    )
+  },
   ul: ({ className, children, ...props }) => (
-    <ul className={cn('my-6 ml-6 list-disc space-y-2', className)} {...props}>
+    <ul className={cn('my-6 ml-6 list-disc [&>li]:mt-2', className)} {...props}>
       {children}
     </ul>
   ),
   ol: ({ className, children, ...props }) => (
-    <ol className={cn('my-6 ml-6 list-decimal space-y-2', className)} {...props}>
+    <ol className={cn('my-6 ml-6 list-decimal [&>li]:mt-2', className)} {...props}>
       {children}
     </ol>
   ),
@@ -125,7 +136,7 @@ export const components = {
       {children}
     </blockquote>
   ),
-  hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
+  hr: ({ ...props }) => <hr className="my-8" {...props} />,
   a: ({ className, children, ...props }) => (
     <a
       className={cn('font-medium underline underline-offset-4', className)}
@@ -171,8 +182,6 @@ export const components = {
       {children}
     </td>
   ),
-  pre: ({ children }) => children,
-  code: Code,
   Alert,
   AlertTitle,
   AlertDescription,

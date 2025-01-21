@@ -1,0 +1,249 @@
+# Code Blocks
+
+The documentation framework includes powerful code block features with syntax highlighting, line numbers, line highlighting, and more.
+
+## Basic Usage
+
+Code blocks are created using triple backticks with an optional language identifier:
+
+\```js
+function hello() {
+  console.log('Hello, world!')
+}
+\```
+
+Renders as:
+
+```js
+function hello() {
+  console.log('Hello, world!')
+}
+```
+
+## Features
+
+### 1. Syntax Highlighting
+
+Supports all major programming languages:
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+```
+
+```css
+.button {
+  background: #0070f3;
+  color: white;
+  border-radius: 0.5rem;
+}
+```
+
+```html
+<div class="alert">
+  <h4>Warning</h4>
+  <p>This is an alert message.</p>
+</div>
+```
+
+### 2. Line Numbers
+
+Enable line numbers in your code blocks:
+
+```js showLineNumbers
+function fibonacci(n) {
+  if (n <= 1) return n
+  return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+// Calculate first 10 numbers
+const sequence = Array.from({ length: 10 }, (_, i) => fibonacci(i))
+console.log(sequence)
+```
+
+### 3. Line Highlighting
+
+Highlight specific lines:
+
+```tsx {3,6-8} showLineNumbers
+import { useState } from 'react'
+
+// Highlight this comment
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  )
+}
+```
+
+### 4. File Names
+
+Add file names to your code blocks:
+
+```jsx filename="components/Button.jsx"
+export function Button({ children, ...props }) {
+  return (
+    <button className="px-4 py-2 rounded" {...props}>
+      {children}
+    </button>
+  )
+}
+```
+
+### 5. Copy Button
+
+A copy button is automatically added to code blocks:
+
+```bash
+npm install @your-package/docs
+```
+
+## Configuration
+
+Configure code block features in `docsConfig.js`:
+
+```js filename="docsConfig.js"
+export const docsConfig = {
+  features: {
+    codeBlocks: {
+      enabled: true,
+      copyButton: true,
+      lineNumbers: true,
+      highlightLines: true,
+      showLanguage: true,
+      wrap: false,
+    },
+  },
+}
+```
+
+## Themes
+
+### Light Theme
+
+Code blocks use GitHub Light theme by default in light mode:
+
+```js
+// Light theme example
+const theme = {
+  background: '#ffffff',
+  text: '#24292e',
+  syntax: {
+    comment: '#6a737d',
+    keyword: '#d73a49',
+    string: '#032f62',
+    number: '#005cc5',
+  },
+}
+```
+
+### Dark Theme
+
+And GitHub Dark theme in dark mode:
+
+```js
+// Dark theme example
+const theme = {
+  background: '#0d1117',
+  text: '#c9d1d9',
+  syntax: {
+    comment: '#8b949e',
+    keyword: '#ff7b72',
+    string: '#a5d6ff',
+    number: '#79c0ff',
+  },
+}
+```
+
+## Advanced Features
+
+### 1. Word Highlighting
+
+Highlight specific words or phrases:
+
+```js /hello/
+function greet() {
+  console.log("hello")
+  return "hello world"
+}
+```
+
+### 2. Multiple Highlights
+
+Highlight different words with different colors:
+
+```js /error/#red /success/#green
+function status(code) {
+  if (code === 200) return "success"
+  return "error"
+}
+```
+
+### 3. Diff Highlighting
+
+Show code differences:
+
+```diff filename="example.js"
+  function hello() {
+-   console.log('Hello')
++   console.log('Hello, world!')
+    return true
+  }
+```
+
+## Best Practices
+
+1. **Language Specification**: Always specify the language for syntax highlighting
+2. **Line Numbers**: Use line numbers for longer code blocks
+3. **Meaningful Highlights**: Highlight important parts of the code
+4. **File Names**: Add file names for context
+5. **Comments**: Include helpful comments in code examples
+
+## Examples
+
+### React Component
+
+```tsx filename="components/Example.tsx" {5,11}
+import { useState } from 'react'
+import { Button } from './Button'
+
+export function Example() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div className="p-4 border rounded">
+      <h2>Counter Example</h2>
+      <p>Count: {count}</p>
+      <Button onClick={() => setCount(count + 1)}>
+        Increment
+      </Button>
+    </div>
+  )
+}
+```
+
+### API Route
+
+```ts filename="pages/api/hello.ts" showLineNumbers
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+type Data = {
+  message: string
+}
+
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  res.status(200).json({ message: 'Hello from API' })
+}
+```
+
+## Next Steps
+
+- Learn about [MDX Support](/features/mdx)
+- Explore [Components](/features/components)
+- Check out [Callouts](/features/callouts) 

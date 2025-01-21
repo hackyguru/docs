@@ -145,6 +145,65 @@ export const docsConfig = {
 
   // Footer configuration
   footer: {
+    branding: {
+      logo: "/logo.svg",
+      logoAlt: "Documentation Logo",
+      description: "Building better documentation for everyone. Simple, modular and accessible documentation components."
+    },
+    columns: [
+      {
+        title: "Product",
+        links: [
+          {
+            text: "Documentation",
+            href: "/docs",
+          },
+          {
+            text: "Guides",
+            href: "/guides",
+          },
+          {
+            text: "API Reference",
+            href: "/api",
+          }
+        ]
+      },
+      {
+        title: "Company",
+        links: [
+          {
+            text: "About Us",
+            href: "/about",
+          },
+          {
+            text: "Blog",
+            href: "/blog",
+          },
+          {
+            text: "Careers",
+            href: "/careers",
+          }
+        ]
+      },
+      {
+        title: "Resources",
+        links: [
+          {
+            text: "Community",
+            href: "/community",
+          },
+          {
+            text: "Contact",
+            href: "/contact",
+          },
+          {
+            text: "Privacy",
+            href: "/privacy",
+            external: true
+          }
+        ]
+      }
+    ],
     credits: {
       text: "Built by",
       link: {
@@ -162,6 +221,11 @@ export const docsConfig = {
         text: "Twitter",
         href: "https://twitter.com/yourusername",
         icon: "twitter"
+      },
+      {
+        text: "Discord",
+        href: "https://discord.gg/yourinvite",
+        icon: "discord"
       }
     ]
   },

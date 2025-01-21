@@ -3,46 +3,211 @@ title: Installation
 description: Learn how to install and set up the documentation framework.
 ---
 
+# Installation
+
+This guide will walk you through setting up your documentation site from scratch.
+
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
-- Node.js 18.0 or higher
-- npm or yarn package manager
-- Git (optional, but recommended)
+Before you begin, make sure you have:
+
+- Node.js 18.0 or later
+- npm, yarn, or pnpm package manager
+- Basic knowledge of React and Next.js
 
 ## Quick Start
 
-1. Clone the repository:
-```bash filename="Terminal"
-git clone https://github.com/yourusername/docs
-cd docs
+### 1. Create a New Next.js Project
+
+Start by creating a new Next.js project with TypeScript and Tailwind CSS:
+
+```bash
+npm create next-app@latest my-docs -- --typescript --tailwind
+cd my-docs
 ```
 
-2. Install dependencies:
-```bash filename="Terminal"
-npm install
-# or
-yarn install
+### 2. Install Dependencies
+
+Install the required dependencies:
+
+```bash
+npm install @radix-ui/react-icons lucide-react next-themes @radix-ui/react-scroll-area @radix-ui/react-separator @radix-ui/react-slot clsx tailwind-merge
 ```
 
-3. Configure your documentation:
-Edit `docsConfig.js` to customize your site:
-```js filename="docsConfig.js"
-export const docsConfig = {
-  title: 'Your Documentation',
-  description: 'Your documentation description',
-  // ... other configurations
+### 3. Configure Tailwind CSS
+
+Update your `tailwind.config.js`:
+
+```js filename="tailwind.config.js"
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{ts,tsx,js,jsx,mdx}',
+    './components/**/*.{ts,tsx,js,jsx}',
+    './app/**/*.{ts,tsx,js,jsx}',
+    './content/**/*.{md,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+    },
+  },
+  plugins: [require("@tailwindcss/typography")],
 }
 ```
 
-4. Start the development server:
-```bash filename="Terminal"
-npm run dev
-# or
-yarn dev
+### 4. Add Base Styles
+
+Create or update your `globals.css`:
+
+```css filename="styles/globals.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 ```
 
-Your site should now be running at [http://localhost:3000](http://localhost:3000)!
+### 5. Add Configuration
+
+Create `docsConfig.js` in your project root:
+
+```js filename="docsConfig.js"
+export const docsConfig = {
+  site: {
+    title: 'Your Documentation',
+    description: 'Documentation site built with Next.js',
+    favicon: '/favicon.ico',
+  },
+  theme: {
+    accentColor: '#0070f3',
+    font: {
+      sans: 'Inter',
+      mono: 'JetBrains Mono',
+    },
+  },
+  // Add more configuration as needed
+}
+```
+
+### 6. Start Development Server
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000` to see your site.
+
+## Next Steps
+
+Now that you have your documentation site set up:
+
+1. Configure your site in `docsConfig.js`
+2. Add MDX content in the `content` directory
+3. Customize the theme and components
+4. Deploy your site
+
+For more details, check out:
+- [Configuration Guide](/configuration)
+- [Adding Pages Guide](/guides/adding-pages)
+- [Styling Guide](/guides/styling)
+- [Deployment Guide](/guides/deployment)
 
 ## Project Structure
 

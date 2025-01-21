@@ -1,7 +1,7 @@
 import { Inter as FontSans } from "next/font/google"
-import { ThemeProvider } from '@/components/theme-provider'
-import { cn } from '@/lib/utils'
-import '@/styles/globals.css'
+import { ThemeProvider } from '../components/theme-provider'
+import { cn } from '../lib/utils'
+import '../styles/globals.css'
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -9,6 +9,9 @@ const fontSans = FontSans({
 })
 
 export default function App({ Component, pageProps }) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => page)
+
   return (
     <>
       <style jsx global>{`
@@ -26,7 +29,7 @@ export default function App({ Component, pageProps }) {
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </div>
       </ThemeProvider>
     </>

@@ -3,59 +3,59 @@ title: Introduction
 description: A modern documentation framework built with Next.js and Shadcn UI.
 ---
 
-# Next.js Documentation Framework
+# Introduction
 
-A modern, feature-rich documentation framework built with Next.js and Shadcn UI. Create beautiful documentation sites with MDX, customizable themes, and built-in components.
+Welcome to the documentation framework built with Next.js and Shadcn UI. This modern documentation site generator helps you create beautiful, fast, and accessible documentation sites with minimal setup.
 
 ## Features
 
-- **Modern Stack**: Built with Next.js and Shadcn UI for a modern development experience
-- **MDX Support**: Write documentation using MDX for rich content with React components
-- **Dark Mode**: Built-in dark mode support with system preference detection
-- **Customizable**: Extensive configuration options for branding and layout
-- **Responsive**: Mobile-first design that works on all devices
-- **SEO Friendly**: Optimized for search engines with proper meta tags
-- **TypeScript**: Full TypeScript support for better development experience
-- **Component Library**: Pre-built components for common documentation needs
+- 📝 **MDX Support** - Write content in MDX with full support for React components
+- 🎨 **Beautiful UI** - Built with Shadcn UI components for a modern look
+- 🌙 **Dark Mode** - Automatic dark mode support with system preference detection
+- 📱 **Responsive** - Fully responsive design that works on all devices
+- 🔍 **On This Page** - Automatic table of contents with active section highlighting
+- 🧭 **Navigation** - Customizable sidebar and top navigation
+- 🔎 **Search** - Full-text search support (coming soon)
+- ⚡ **Fast** - Built on Next.js for optimal performance
+- ♿ **Accessible** - WCAG compliant and keyboard navigable
+- 🎯 **SEO Optimized** - Built-in SEO components and meta tags
 
-## Quick Start
+## Getting Started
 
-1. Clone the repository:
+To start using this documentation framework:
 
-```bash filename="Terminal"
-git clone https://github.com/yourusername/docs
-cd docs
+1. First, install the framework using npm:
+```bash
+npm create next-app@latest my-docs -- --typescript --tailwind
+cd my-docs
 ```
 
-2. Install dependencies:
-```bash filename="Terminal"
-npm install
-# or
-yarn install
-# or
-pnpm install
+2. Install the required dependencies:
+```bash
+npm install @radix-ui/react-icons lucide-react next-themes
 ```
 
-3. Configure your site:
-```js filename="docsConfig.js"
-// docsConfig.js
-export const docsConfig = {
-  site: {
-    title: 'Your Documentation',
-    description: 'Your site description',
-    // ... other configurations
-  }
-}
+3. Configure your documentation in `docsConfig.js`
+
+4. Start adding your content in MDX files
+
+## Project Structure
+
+```
+my-docs/
+├── content/           # Documentation content (MDX files)
+├── components/        # React components
+├── styles/           # Global styles and Tailwind CSS
+├── public/           # Static assets
+└── docsConfig.js     # Site configuration
 ```
 
+## Next Steps
 
-4. Start the development server:
-```bash filename="Terminal"
-npm run dev
-```
-
-
-Visit `http://localhost:3000` to see your documentation site.
+- Continue to the [Installation](/installation) guide for detailed setup instructions
+- Learn about [Configuration](/configuration) options
+- Explore available [Components](/components/alert)
+- Read our [Guides](/guides/adding-pages) for advanced usage
 
 ## Key Concepts
 

@@ -1,0 +1,196 @@
+# MDX Support
+
+This documentation framework comes with full MDX support, allowing you to write documentation using a powerful combination of Markdown and React components.
+
+## Writing MDX
+
+MDX files are Markdown files with JSX support. You can use all standard Markdown syntax plus import and use React components directly in your content.
+
+### Basic Markdown
+
+```mdx
+# Heading 1
+## Heading 2
+### Heading 3
+
+- List item 1
+- List item 2
+- List item 3
+
+1. Numbered item 1
+2. Numbered item 2
+3. Numbered item 3
+
+> This is a blockquote
+
+**Bold text** and *italic text*
+
+[Link to somewhere](https://example.com)
+```
+
+### Using Components
+
+You can import and use React components directly in your MDX:
+
+```mdx
+import { Alert } from '@/components/ui/alert'
+
+# My Page
+
+<Alert>
+  This is an important message!
+</Alert>
+
+Continue writing in Markdown...
+```
+
+## Built-in Components
+
+The framework comes with several built-in components ready to use in your MDX files:
+
+### Alert
+
+```mdx
+<Alert>
+  This is a default alert
+</Alert>
+
+<Alert variant="destructive">
+  This is a destructive alert
+</Alert>
+```
+
+### Button
+
+```mdx
+<Button>
+  Click me
+</Button>
+
+<Button variant="secondary">
+  Secondary button
+</Button>
+```
+
+### Tabs
+
+```mdx
+<Tabs defaultValue="npm">
+  <TabsList>
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="yarn">yarn</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+    ```bash
+    npm install package-name
+    ```
+  </TabsContent>
+  <TabsContent value="yarn">
+    ```bash
+    yarn add package-name
+    ```
+  </TabsContent>
+  <TabsContent value="pnpm">
+    ```bash
+    pnpm add package-name
+    ```
+  </TabsContent>
+</Tabs>
+```
+
+## Code Blocks
+
+Code blocks support syntax highlighting and additional features:
+
+### Basic Code Block
+
+\```js
+function hello() {
+  console.log('Hello, world!')
+}
+\```
+
+### With Filename
+
+\```js filename="example.js"
+function hello() {
+  console.log('Hello, world!')
+}
+\```
+
+### With Line Highlighting
+
+\```js {3}
+function hello() {
+  // This line is normal
+  console.log('This line is highlighted!')
+  return true
+}
+\```
+
+## Frontmatter
+
+You can add metadata to your MDX files using frontmatter:
+
+```mdx
+---
+title: My Page
+description: This is a description of my page
+---
+
+# Content starts here
+```
+
+## Custom Components
+
+### Adding Custom Components
+
+1. Create your component:
+
+```jsx filename="components/CustomComponent.jsx"
+export function CustomComponent({ children }) {
+  return (
+    <div className="p-4 border rounded-lg">
+      {children}
+    </div>
+  )
+}
+```
+
+2. Add it to the MDX components map:
+
+```js filename="components/mdx-components.js"
+import { CustomComponent } from './CustomComponent'
+
+export const components = {
+  // ... other components
+  CustomComponent,
+}
+```
+
+3. Use it in your MDX:
+
+```mdx
+<CustomComponent>
+  This is my custom component
+</CustomComponent>
+```
+
+## Best Practices
+
+1. **Keep it Simple**: While MDX allows you to use React components, use them judiciously. Not everything needs to be a component.
+
+2. **Consistent Styling**: Use the built-in components when possible to maintain consistent styling across your documentation.
+
+3. **Component Documentation**: When creating custom components, document their props and usage clearly.
+
+4. **Accessibility**: Ensure your custom components are accessible with proper ARIA attributes and keyboard navigation.
+
+5. **Performance**: Be mindful of component complexity and bundle size when adding custom components.
+
+## Next Steps
+
+- Explore the [Components](/components/alert) documentation
+- Learn about [Custom Components](/guides/custom-components)
+- Check out the [Styling](/guides/styling) guide 

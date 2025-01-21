@@ -1,0 +1,188 @@
+# Search
+
+The documentation framework includes powerful search functionality powered by Algolia DocSearch, allowing users to quickly find the content they need.
+
+## Setup
+
+### 1. Configure Algolia
+
+First, sign up for [Algolia](https://www.algolia.com/) and create a new application. Then configure the search in `docsConfig.js`:
+
+```js filename="docsConfig.js"
+export const docsConfig = {
+  features: {
+    search: {
+      enabled: true,
+      type: 'algolia',
+      config: {
+        appId: 'YOUR_APP_ID',
+        apiKey: 'YOUR_SEARCH_API_KEY',
+        indexName: 'YOUR_INDEX_NAME',
+      },
+    },
+  },
+}
+```
+
+### 2. Add Search Component
+
+The search component is automatically added to the header. You can customize its appearance and behavior:
+
+```jsx filename="components/search.tsx"
+<Search
+  placeholder="Search documentation..."
+  className="w-full lg:w-64"
+  overlayClassName="fixed inset-0 bg-black/50"
+/>
+```
+
+## Features
+
+### Keyboard Shortcuts
+
+- Press <kbd>⌘</kbd> + <kbd>K</kbd> (Mac) or <kbd>Ctrl</kbd> + <kbd>K</kbd> (Windows) to open search
+- Use <kbd>↑</kbd> and <kbd>↓</kbd> to navigate results
+- Press <kbd>Enter</kbd> to select a result
+- Press <kbd>Esc</kbd> to close search
+
+### Search Syntax
+
+The search supports various query types:
+
+```txt
+# Search in title
+title:installation
+
+# Search in content
+content:"code blocks"
+
+# Combine searches
+title:components content:button
+
+# Exact match
+"getting started"
+```
+
+### Search Results
+
+Results are displayed with:
+- Page title and section
+- Content preview
+- Breadcrumb navigation
+- Highlighted matching terms
+
+<Alert>
+  <AlertTitle>Note</AlertTitle>
+  <AlertDescription>
+    Search results are updated within 24 hours of content changes.
+  </AlertDescription>
+</Alert>
+
+## Customization
+
+### Styling
+
+Customize the search modal appearance:
+
+```jsx
+<Search
+  modalClassName="rounded-lg border shadow-lg"
+  inputClassName="h-12 px-4 rounded-md"
+  resultsClassName="mt-2 space-y-1"
+/>
+```
+
+### Custom Search Provider
+
+You can implement your own search provider:
+
+```tsx filename="lib/search.ts"
+export async function searchContent(query: string) {
+  // Implement your search logic
+  const results = await customSearch(query)
+  return results
+}
+```
+
+Then configure it:
+
+```js filename="docsConfig.js"
+features: {
+  search: {
+    enabled: true,
+    type: 'custom',
+    provider: searchContent,
+  },
+}
+```
+
+## Search Index
+
+### Configuring Index
+
+Control what gets indexed:
+
+```js filename="docsConfig.js"
+features: {
+  search: {
+    indexing: {
+      includeContent: true,
+      includePath: true,
+      includeTitle: true,
+      includeDescription: true,
+    },
+  },
+}
+```
+
+### Custom Fields
+
+Add custom fields to the search index:
+
+```js
+export const metadata = {
+  title: 'Search',
+  tags: ['search', 'algolia', 'documentation'],
+  category: 'features',
+}
+```
+
+## Best Practices
+
+1. **Relevant Content**: Ensure your content is well-structured with clear headings
+2. **Meaningful Titles**: Use descriptive page titles and section headings
+3. **Meta Description**: Add clear meta descriptions to improve search results
+4. **Regular Updates**: Keep your search index up to date
+5. **Monitor Usage**: Track popular searches to improve content
+
+## Examples
+
+### Basic Search
+
+```jsx
+<Search placeholder="Search..." />
+```
+
+### Advanced Search
+
+```jsx
+<Search
+  placeholder="Search docs..."
+  hotkeys={['command+k', 'ctrl+k']}
+  maxResults={10}
+  groupResults={true}
+  searchOptions={{
+    fuzzy: true,
+    boost: {
+      title: 2,
+      content: 1,
+    },
+  }}
+/>
+```
+
+## Next Steps
+
+- Set up [Analytics](/guides/analytics) to track search usage
+- Learn about [SEO](/guides/seo) optimization
+- Explore [Custom Components](/guides/custom-components) 
