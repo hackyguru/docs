@@ -33,7 +33,7 @@ export const docsConfig = {
 
 ### 2. Sidebar Navigation
 
-The sidebar is organized into groups and items:
+The sidebar is organized into groups and items. You can optionally add icons to any sidebar item:
 
 ```js filename="docsConfig.js"
 sidebar: {
@@ -44,10 +44,12 @@ sidebar: {
         {
           title: 'Introduction',
           href: '/introduction',
+          icon: 'book' // Optional icon
         },
         {
           title: 'Installation',
           href: '/installation',
+          icon: 'rocket' // Optional icon
         },
       ],
     },
@@ -57,16 +59,20 @@ sidebar: {
         {
           title: 'MDX Support',
           href: '/features/mdx',
+          icon: 'code' // Optional icon
         },
         {
           title: 'Components',
           href: '/features/components',
+          icon: 'component' // Optional icon
         },
       ],
     },
   ],
 }
 ```
+
+The `icon` property is optional and can reference any icon defined in your `components/icons.jsx` file. Icons will be displayed before the item title in the sidebar.
 
 ### 3. On This Page
 

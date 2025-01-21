@@ -1,78 +1,153 @@
 import { docsConfig } from '../docsConfig'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
+import { Button } from '../components/ui/button'
 import { Icons } from '../components/icons'
 import Link from 'next/link'
+import { Card } from '../components/ui/card'
 import Image from 'next/image'
-import { DocsLayout } from '../components/layouts/docs-layout'
+import { LandingLayout } from '../components/layouts/landing-layout'
 
 export default function LandingPage() {
-  if (!docsConfig.landing) {
-    return null
-  }
-
   const { landing } = docsConfig
 
   return (
-    <div className="flex-1">
-      <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
-        <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-          <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-            {landing.title}
+    <div className="container mx-auto max-w-[1200px] px-6">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-20 pb-16">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <h1 className="font-heading text-[#292929] dark:text-white text-3xl font-bold sm:text-5xl md:text-6xl lg:text-4xl">
+            Documentation Framework For Dummies
           </h1>
-          <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-            {landing.description}
-          </p>
+          <div className="flex gap-4 mt-4">
+            <Link href="/introduction">
+              <Button size="lg" className="h-12 px-8 text-white dark:text-black">
+                Get started for free
+              </Button>
+            </Link>
+            <Link href="https://github.com/yourusername/docs">
+              <Button variant="outline" size="lg" className="h-12 px-8 text-[#292929] dark:text-white hover:text-[#292929] dark:hover:text-white">
+                <Icons.github className="mr-2 h-5 w-5" />
+                GitHub
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="container space-y-6 py-8 md:py-12 lg:py-24">
-        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-          {landing.media.type === "video" ? (
-            <div className="aspect-video w-full overflow-hidden rounded-lg border bg-muted">
+      {/* Features Grid */}
+      <section className="pb-8">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-6 auto-rows-[240px]">
+          {/* Card 1 - Image */}
+          <Card className="relative overflow-hidden border-4 border-white dark:border-neutral-800 bg-[#eaeaea] dark:bg-neutral-900 group md:col-span-2 lg:col-span-2">
+            <div className="relative w-full h-full">
+              <Image
+                src="/card1.png"
+                alt="Documentation Example"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="bg-white dark:bg-neutral-800 rounded-full py-2 px-4">
+                  <p className="text-sm font-medium text-[#292929] dark:text-white">What is DeDocs</p>
+                </div>
+                <Button size="icon" variant="outline" className="rounded-full bg-white dark:bg-neutral-800 h-8 w-8 text-[#292929] dark:text-white">
+                  <Icons.arrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </Card>
+
+
+          {/* Card 2 - Video Card */}
+          <Card className="relative overflow-hidden border-4 border-white dark:border-neutral-800 bg-[#eaeaea] dark:bg-neutral-900 group md:col-span-2 lg:col-span-4 md:row-span-2">
+            <div className="relative w-full h-full">
               <iframe
-                src={landing.media.url}
-                className="h-full w-full"
+                src="https://www.youtube.com/embed/BFX-VhbIbdo?si=6eT-1WIphp2bgur-&autoplay=0&rel=0"
+                className="absolute top-0 left-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                title="Documentation Framework Demo"
+                loading="lazy"
               />
             </div>
-          ) : (
-            <div className="aspect-video w-full overflow-hidden rounded-lg border bg-muted">
-              <Image
-                src={landing.media.url}
-                alt="Documentation preview"
-                width={1920}
-                height={1080}
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
-        </div>
-      </section>
+          </Card>
 
-      <section className="container py-8 md:py-12 lg:py-24">
-        <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-          {landing.cta.map((item, index) => {
-            const Icon = Icons[item.icon]
-            return (
-              <Link key={index} href={item.href} legacyBehavior>
-                <a className="block">
-                  <Card className="h-full cursor-pointer transition-colors hover:bg-muted/50">
-                    <CardHeader>
-                      <div className="flex items-center gap-4">
-                        {Icon && <Icon className="h-8 w-8" />}
-                        <CardTitle>{item.title}</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription>{item.description}</CardDescription>
-                    </CardContent>
-                  </Card>
-                </a>
-              </Link>
-            )
-          })}
+                    {/* Card 1 - Image */}
+                    <Card className="relative overflow-hidden border-4 border-white dark:border-neutral-800 bg-[#eaeaea] dark:bg-neutral-900 group md:col-span-2 lg:col-span-2">
+            <div className="relative w-full h-full">
+              <Image
+                src="/g1.jpg"
+                alt="Documentation Example"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="bg-white dark:bg-neutral-800 rounded-full py-2 px-4">
+                  <p className="text-sm font-medium text-[#292929] dark:text-white">Write documentation using MDX</p>
+                </div>
+                <Button size="icon" variant="outline" className="rounded-full bg-white dark:bg-neutral-800 h-8 w-8 text-[#292929] dark:text-white">
+                  <Icons.arrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </Card>
+                    {/* Card 1 - Image */}
+                    <Card className="relative overflow-hidden border-4 border-white dark:border-neutral-800 bg-[#eaeaea] dark:bg-neutral-900 group md:col-span-2 lg:col-span-2">
+            <div className="relative w-full h-full">
+              <Image
+                src="/g1.jpg"
+                alt="Documentation Example"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="bg-white dark:bg-neutral-800 rounded-full py-2 px-4">
+                  <p className="text-sm font-medium text-[#292929] dark:text-white">Write documentation using MDX</p>
+                </div>
+                <Button size="icon" variant="outline" className="rounded-full bg-white dark:bg-neutral-800 h-8 w-8 text-[#292929] dark:text-white">
+                  <Icons.arrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </Card>
+                    {/* Card 1 - Image */}
+                    <Card className="relative overflow-hidden border-4 border-white dark:border-neutral-800 bg-[#eaeaea] dark:bg-neutral-900 group md:col-span-2 lg:col-span-2">
+            <div className="relative w-full h-full">
+              <Image
+                src="/g1.jpg"
+                alt="Documentation Example"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="bg-white dark:bg-neutral-800 rounded-full py-2 px-4">
+                  <p className="text-sm font-medium text-[#292929] dark:text-white">Write documentation using MDX</p>
+                </div>
+                <Button size="icon" variant="outline" className="rounded-full bg-white dark:bg-neutral-800 h-8 w-8 text-[#292929] dark:text-white">
+                  <Icons.arrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </Card>
+
+          {/* Card 3 - Image */}
+          <Card className="relative overflow-hidden border-4 border-white dark:border-neutral-800 bg-[#eaeaea] dark:bg-neutral-900 group md:col-span-2 lg:col-span-2">
+            <div className="relative w-full h-full">
+              <Image
+                src="/g2.jpg"
+                alt="Search Feature"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div className="bg-white dark:bg-neutral-800 rounded-full py-2 px-4">
+                  <p className="text-sm font-medium text-[#292929] dark:text-white">Full-text search functionality</p>
+                </div>
+                <Button size="icon" variant="outline" className="rounded-full bg-white dark:bg-neutral-800 h-8 w-8 text-[#292929] dark:text-white">
+                  <Icons.arrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
     </div>
@@ -80,5 +155,5 @@ export default function LandingPage() {
 }
 
 LandingPage.getLayout = function getLayout(page) {
-  return <DocsLayout>{page}</DocsLayout>
+  return <LandingLayout>{page}</LandingLayout>
 } 

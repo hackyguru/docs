@@ -183,4 +183,287 @@ Configure code formatting in `.prettierrc`:
   "tabWidth": 2,
   "trailingComma": "es5"
 }
-``` 
+```
+
+# Configuration Reference
+
+This page provides a complete reference for all configuration options available in the documentation framework.
+
+## Configuration File
+
+All configuration is managed through the `docsConfig.js` file in your project's root directory. This file exports a single object containing all your site's configuration options.
+
+## Available Options
+
+### Theme Configuration
+
+Control the visual appearance of your site:
+
+```js
+theme: {
+  // Color scheme
+  colors: {
+    primary: '#0070f3',
+    background: '#E8E8EA',
+    text: '#292929',
+    border: '#FFFFFF',
+    dark: {
+      background: '#1A1A1A',
+      text: '#FFFFFF',
+      border: '#333333'
+    }
+  },
+  // Typography settings
+  typography: {
+    fontFamily: {
+      sans: 'Inter, sans-serif',
+      mono: 'JetBrains Mono, monospace',
+      heading: 'Cal Sans, sans-serif'
+    },
+    fontSize: {
+      h1: '2.5rem',
+      h2: '2rem',
+      h3: '1.5rem',
+      base: '1rem'
+    }
+  }
+}
+```
+
+### Layout Configuration
+
+Control the overall layout dimensions:
+
+```js
+layout: {
+  maxWidth: '90rem',    // Maximum width of the entire site
+  contentWidth: '4xl',  // Width of the main content area
+  gap: '1rem',         // Spacing between elements
+  padding: '1.5rem'    // Page padding
+}
+```
+
+### Landing Page Configuration
+
+Customize the landing page content and layout:
+
+```js
+landing: {
+  // Hero section
+  hero: {
+    title: 'Your Site Title',
+    description: 'Your site description',
+    buttons: [
+      {
+        text: 'Get Started',
+        href: '/introduction',
+        variant: 'default'
+      }
+    ]
+  },
+  // Feature cards
+  features: [
+    {
+      title: 'Feature Title',
+      description: 'Feature description',
+      image: '/feature.png',
+      href: '/feature'
+    }
+  ]
+}
+```
+
+### Navigation Configuration
+
+Configure all navigation elements:
+
+```js
+navigation: {
+  // Header settings
+  header: {
+    logo: '/logo.svg',
+    height: '4rem',
+    sticky: true,
+    mobileMenu: true
+  },
+  // Sidebar settings
+  sidebar: {
+    width: '240px',
+    collapsible: true,
+    defaultCollapsed: false
+  },
+  // Table of contents settings
+  tableOfContents: {
+    enabled: true,
+    depth: 3,
+    scrollspy: true,
+    smooth: true
+  }
+}
+```
+
+### Component Configuration
+
+Customize default components:
+
+```js
+components: {
+  // Card component settings
+  card: {
+    borderRadius: '0.5rem',
+    borderWidth: '4px',
+    animation: {
+      hover: true,
+      duration: '0.3s'
+    }
+  },
+  // Button component settings
+  button: {
+    variants: {
+      default: {
+        bg: 'primary',
+        text: 'white',
+        hover: { opacity: 0.9 }
+      },
+      outline: {
+        border: '1px solid',
+        hover: { bg: 'primary' }
+      }
+    },
+    sizes: {
+      sm: { height: '2rem', px: '1rem' },
+      lg: { height: '3rem', px: '2rem' }
+    }
+  }
+}
+```
+
+### Content Configuration
+
+Configure content-related features:
+
+```js
+content: {
+  // MDX component overrides
+  mdx: {
+    components: {
+      // Your custom MDX components
+    }
+  },
+  // Code block settings
+  codeBlocks: {
+    theme: 'github-dark',
+    lineNumbers: true,
+    copyButton: true,
+    languages: ['js', 'jsx', 'ts', 'tsx', 'bash'],
+    highlightStyle: {
+      background: '#2E2E2E',
+      borderRadius: '0.5rem'
+    }
+  }
+}
+```
+
+### Plugin Configuration
+
+Add and configure plugins:
+
+```js
+plugins: [
+  // Add your plugins here
+]
+```
+
+### Sidebar Structure
+
+Configure the documentation sidebar:
+
+```js
+sidebar: {
+  groups: [
+    {
+      title: 'Getting Started',
+      items: [
+        {
+          title: 'Introduction',
+          href: '/introduction',
+          icon: 'book'
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Environment Variables
+
+The following environment variables can be used to configure certain features:
+
+- `NEXT_PUBLIC_SITE_URL`: Your site's public URL
+- `NEXT_PUBLIC_GA_ID`: Google Analytics tracking ID
+- `ALGOLIA_API_KEY`: Algolia search API key
+- `ALGOLIA_APP_ID`: Algolia application ID
+- `ALGOLIA_INDEX_NAME`: Algolia index name
+
+## TypeScript Support
+
+The configuration object is fully typed. You can import the types from the framework:
+
+```ts
+import type { DocsConfig } from '@your-docs/types'
+
+export const docsConfig: DocsConfig = {
+  // Your configuration here
+}
+```
+
+## Best Practices
+
+1. **Version Control**: Keep your configuration file in version control
+2. **Environment Variables**: Use environment variables for sensitive information
+3. **TypeScript**: Use TypeScript for better type safety and autocompletion
+4. **Documentation**: Comment your configuration for future reference
+5. **Testing**: Test your configuration changes across different pages and components
+
+## Common Configurations
+
+### Blog Configuration
+
+Example configuration for a documentation site with a blog:
+
+```js
+{
+  // Add blog-specific settings
+  blog: {
+    enabled: true,
+    postsPerPage: 10,
+    authors: {
+      // Author information
+    }
+  }
+}
+```
+
+### API Documentation
+
+Example configuration for API documentation:
+
+```js
+{
+  // API documentation settings
+  api: {
+    enabled: true,
+    baseUrl: 'https://api.example.com',
+    auth: {
+      enabled: true,
+      type: 'bearer'
+    }
+  }
+}
+```
+
+## Next Steps
+
+- Learn how to [customize components](/customization#component-customization)
+- Explore [advanced theming options](/customization#theme-customization)
+- Set up [plugins](/customization#plugins) for additional functionality 

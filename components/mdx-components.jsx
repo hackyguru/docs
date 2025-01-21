@@ -28,7 +28,7 @@ const Code = ({ children, className }) => {
     <Highlight theme={themes.vsDark} code={code} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div className="group relative">
-          <pre className={cn('overflow-x-auto p-4 rounded-lg bg-zinc-950', className)} style={style}>
+          <pre className={cn('my-3 overflow-x-auto rounded-lg bg-zinc-950 p-4', className)} style={style}>
             <code>
               {tokens.map((line, i) => (
                 <div key={i} {...getLineProps({ line })}>
@@ -53,7 +53,7 @@ const Code = ({ children, className }) => {
 
 export const components = {
   pre: ({ className, ...props }) => (
-    <div className={cn('my-8 rounded-lg', className)}>
+    <div className={cn('rounded-lg', className)}>
       <pre {...props} />
     </div>
   ),

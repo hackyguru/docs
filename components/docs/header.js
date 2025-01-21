@@ -1,24 +1,42 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useTheme } from 'next-themes'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { DocsSidebar } from './sidebar'
 import { docsConfig } from '@/docsConfig'
+import { cn } from '@/lib/utils'
 
 export function DocsHeader() {
   const { setTheme, theme } = useTheme()
   const [open, setOpen] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+  const isRoot = pathname === '/'
 
-  const logo = docsConfig.site?.logo
-  const title = docsConfig.site?.title || 'Documentation'
+  const handleGetStarted = async (e) => {
+    e.preventDefault()
+    setIsTransitioning(true)
+    await new Promise(resolve => setTimeout(resolve, 300)) // Wait for fade out
+    router.push('/introduction')
+  }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center justify-between px-4 md:px-6">
+    <header className={cn(
+      "sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 ease-in-out",
+      !isRoot && "border-b"
+    )}>
+      <div className={cn(
+        "flex h-14 items-center justify-between px-4 md:px-8",
+        isTransitioning && "opacity-0 transition-opacity duration-300"
+      )}>
         <div className="flex items-center gap-6">
+          {/* Mobile Menu Button */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button
@@ -30,73 +48,89 @@ export function DocsHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="pl-1 pr-0">
-              <div className="px-4">
-                <Link
-                  href="/"
-                  className="flex items-center space-x-2"
-                  onClick={() => setOpen(false)}
-                >
-                  {logo && (
-                    <img 
-                      src={theme === 'dark' ? logo.dark : logo.light} 
-                      alt={title}
-                      className="h-6 w-6" 
-                      width={logo.width || 24}
-                      height={logo.height || 24}
-                    />
-                  )}
-                  <span className="font-bold">{title}</span>
+              <div className="px-7">
+                <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
+                  <Image 
+                    src={theme === 'dark' ? '/logo.svg' : '/logo.svg'} 
+                    alt="Logo" 
+                    width={24} 
+                    height={24} 
+                  />
                 </Link>
               </div>
-              <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
+              <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
                 <DocsSidebar items={docsConfig.sidebar?.groups || []} />
               </ScrollArea>
             </SheetContent>
           </Sheet>
 
-          <Link href="/" className="flex items-center space-x-2">
-            {logo && (
-              <img 
-                src={theme === 'dark' ? logo.dark : logo.light} 
-                alt={title}
-                className="h-6 w-6" 
-                width={logo.width || 24}
-                height={logo.height || 24}
-              />
+          {/* Logo and Nav Items */}
+          <div className="flex items-center gap-6">
+            {!isRoot && (
+              <Link href="/" className="hidden md:flex items-center">
+                <Image 
+                  src={theme === 'dark' ? '/logo.svg' : '/logo.svg'} 
+                  alt="Logo" 
+                  width={24} 
+                  height={24} 
+                />
+              </Link>
             )}
-            <span className="hidden font-bold sm:inline-block">
-              {title}
-            </span>
-          </Link>
-
-          <nav className="hidden md:flex">
-            <div className="flex items-center gap-6">
-              {docsConfig.navigation?.links?.map((link, index) => (
+            <nav className="hidden md:flex items-center gap-6">
+              {docsConfig.mainNav?.map((item) => (
                 <Link
-                  key={index}
-                  href={link.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium transition-colors hover:text-foreground/80"
                 >
-                  {link.title}
+                  {item.title}
                 </Link>
               ))}
-            </div>
-          </nav>
+            </nav>
+          </div>
         </div>
 
+        {/* Center Logo for Landing Page */}
+        {isRoot && (
+          <div className={cn(
+            "absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-in-out",
+            isRoot && "translate-y-4"
+          )}>
+            <Link href="/" className="flex items-center">
+              <Image 
+                src={theme === 'dark' ? '/logo.svg' : '/logo.svg'} 
+                alt="Logo" 
+                width={28} 
+                height={28} 
+                className="transition-transform duration-300 ease-in-out"
+              />
+            </Link>
+          </div>
+        )}
+
+        {/* Right Actions */}
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
             size="icon"
             aria-label="Toggle theme"
-            className="rounded-full"
+            className="h-8 w-8 px-0"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
-            <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <Sun className="h-4 w-4 rotate-0 scale-100 transition-transform duration-500 dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-transform duration-500 dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
           </Button>
+          {isRoot && (
+            <Button 
+              variant="default" 
+              size="sm"
+              onClick={handleGetStarted}
+              className="transition-all duration-300 ease-in-out hover:scale-105"
+            >
+              Get Started
+            </Button>
+          )}
         </div>
       </div>
     </header>

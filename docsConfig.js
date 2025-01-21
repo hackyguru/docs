@@ -17,39 +17,48 @@ export const docsConfig = {
     onThisPage: true,
   },
 
-  // Landing page configuration
-  landing: {
-    title: "Build beautiful documentation sites with ease",
-    description: "A modern documentation framework built with Next.js and Shadcn UI. Fast, accessible, and beautiful by default.",
-    media: {
-      type: "video", // or "image"
-      url: "https://www.youtube.com/embed/your-video-id", // or "/path/to/your/image.jpg"
-      aspectRatio: "16/9",
+  // Main navigation items
+  mainNav: [
+    {
+      title: 'Documentation',
+      href: '/introduction',
     },
-    cta: [
-      {
-        title: "Get Started",
-        description: "Learn how to install and set up your documentation site.",
-        href: "/introduction",
-        icon: "rocket", // You can use any icon name from your icon set
-      },
-      {
-        title: "Components",
-        description: "Explore our beautiful, accessible components.",
-        href: "/features/components",
-        icon: "component",
-      },
-      {
-        title: "Guides",
-        description: "Follow our guides to customize your documentation.",
-        href: "/guides/adding-pages",
-        icon: "book",
-      },
-    ],
-  },
+    {
+      title: 'Components',
+      href: '/components/alert',
+    },
+    {
+      title: 'Features',
+      href: '/features/mdx',
+    },
+  ],
 
   // Theme configuration
   theme: {
+    colors: {
+      primary: '#0070f3',
+      background: '#E8E8EA',
+      text: '#292929',
+      border: '#FFFFFF',
+      dark: {
+        background: '#1A1A1A',
+        text: '#FFFFFF',
+        border: '#333333'
+      }
+    },
+    typography: {
+      fontFamily: {
+        sans: 'Inter, sans-serif',
+        mono: 'JetBrains Mono, monospace',
+        heading: 'Cal Sans, sans-serif'
+      },
+      fontSize: {
+        h1: '2.5rem',
+        h2: '2rem',
+        h3: '1.5rem',
+        base: '1rem'
+      }
+    },
     accentColor: '#0070f3',
     font: {
       sans: 'Inter',
@@ -58,8 +67,67 @@ export const docsConfig = {
     radius: '0.5rem',
   },
 
+  // Layout configuration
+  layout: {
+    maxWidth: '90rem',
+    contentWidth: '4xl',
+    gap: '1rem',
+    padding: '1.5rem'
+  },
+
+  // Landing page configuration
+  landing: {
+    hero: {
+      title: 'Documentation Framework For Dummies',
+      description: 'Your custom description here',
+      buttons: [
+        {
+          text: 'Get started for free',
+          href: '/introduction',
+          variant: 'default'
+        },
+        {
+          text: 'GitHub',
+          href: 'https://github.com/yourusername/docs',
+          variant: 'outline',
+          icon: 'github'
+        }
+      ]
+    },
+    features: [
+      {
+        title: 'What is DeDocs',
+        description: 'Your custom description',
+        image: '/card1.png',
+        href: '/introduction'
+      },
+      {
+        title: 'Beautiful UI',
+        video: 'https://youtube.com/...',
+        href: '/features/ui'
+      }
+    ]
+  },
+
   // Top navigation configuration
   navigation: {
+    header: {
+      logo: '/logo.svg',
+      height: '4rem',
+      sticky: true,
+      mobileMenu: true
+    },
+    sidebar: {
+      width: '240px',
+      collapsible: true,
+      defaultCollapsed: false
+    },
+    tableOfContents: {
+      enabled: true,
+      depth: 3,
+      scrollspy: true,
+      smooth: true
+    },
     // Links shown in the top navigation bar
     links: [
       {
@@ -81,7 +149,6 @@ export const docsConfig = {
 
   // Sidebar configuration
   sidebar: {
-    // Groups of links shown in the sidebar
     groups: [
       {
         title: 'Getting Started',
@@ -89,17 +156,19 @@ export const docsConfig = {
           {
             title: 'Introduction',
             href: '/introduction',
-            isDefault: false,
+            icon: 'book'
           },
           {
             title: 'Installation',
             href: '/installation',
+            icon: 'rocket'
           },
           {
-            title: 'Configuration',
-            href: '/configuration',
-          },
-        ],
+            title: 'Customization',
+            href: '/customization',
+            icon: 'palette'
+          }
+        ]
       },
       {
         title: 'Features',
@@ -107,96 +176,21 @@ export const docsConfig = {
           {
             title: 'MDX Support',
             href: '/features/mdx',
+            icon: 'fileText'
           },
           {
             title: 'Components',
             href: '/features/components',
+            icon: 'component'
           },
           {
             title: 'Theming',
             href: '/features/theming',
-          },
-          {
-            title: 'Navigation',
-            href: '/features/navigation',
-          },
-          {
-            title: 'Search',
-            href: '/features/search',
-          },
-          {
-            title: 'Code Blocks',
-            href: '/features/code-blocks',
-          },
-          {
-            title: 'Callouts',
-            href: '/features/callouts',
-          },
-          {
-            title: 'SEO',
-            href: '/features/seo',
-          },
-        ],
-      },
-      {
-        title: 'Components',
-        items: [
-          {
-            title: 'Alert',
-            href: '/components/alert',
-          },
-          {
-            title: 'Button',
-            href: '/components/button',
-          },
-          {
-            title: 'Card',
-            href: '/components/card',
-          },
-          {
-            title: 'Tabs',
-            href: '/components/tabs',
-          },
-          {
-            title: 'Callout',
-            href: '/components/callout',
-          },
-          {
-            title: 'Code',
-            href: '/components/code',
-          },
-        ],
-      },
-      {
-        title: 'Guides',
-        items: [
-          {
-            title: 'Adding Pages',
-            href: '/guides/adding-pages',
-          },
-          {
-            title: 'Custom Components',
-            href: '/guides/custom-components',
-          },
-          {
-            title: 'Styling',
-            href: '/guides/styling',
-          },
-          {
-            title: 'Deployment',
-            href: '/guides/deployment',
-          },
-          {
-            title: 'Analytics',
-            href: '/guides/analytics',
-          },
-          {
-            title: 'SEO',
-            href: '/guides/seo',
-          },
-        ],
-      },
-    ],
+            icon: 'palette'
+          }
+        ]
+      }
+    ]
   },
 
   // Footer configuration
@@ -293,4 +287,57 @@ export const docsConfig = {
     mobileMenu: true,
     scrollToTop: true,
   },
+
+  // Component configuration
+  components: {
+    card: {
+      borderRadius: '0.5rem',
+      borderWidth: '4px',
+      animation: {
+        hover: true,
+        duration: '0.3s'
+      }
+    },
+    button: {
+      variants: {
+        default: {
+          bg: 'primary',
+          text: 'white',
+          hover: { opacity: 0.9 }
+        },
+        outline: {
+          border: '1px solid',
+          hover: { bg: 'primary' }
+        }
+      },
+      sizes: {
+        sm: { height: '2rem', px: '1rem' },
+        lg: { height: '3rem', px: '2rem' }
+      }
+    }
+  },
+
+  // Content configuration
+  content: {
+    mdx: {
+      components: {
+        // Add custom MDX components here
+      }
+    },
+    codeBlocks: {
+      theme: 'github-dark',
+      lineNumbers: true,
+      copyButton: true,
+      languages: ['js', 'jsx', 'ts', 'tsx', 'bash'],
+      highlightStyle: {
+        background: '#2E2E2E',
+        borderRadius: '0.5rem'
+      }
+    }
+  },
+
+  // Plugin configuration
+  plugins: [
+    // Add plugins here
+  ],
 } 

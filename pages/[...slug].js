@@ -5,12 +5,15 @@ import { components } from '../components/mdx-components'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '../components/ui/card'
 import { Button } from '../components/ui/button'
 import { Share2 } from 'lucide-react'
+import { Badge } from '../components/ui/badge'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 export default function Doc({ doc }) {
   const [copied, setCopied] = useState(false)
   const isComponentPage = doc.slug?.startsWith('components/') || doc.frontmatter?.type === 'component'
+  
+  console.log('Frontmatter:', doc.frontmatter) // Debug log
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href)
@@ -46,10 +49,23 @@ export default function Doc({ doc }) {
               </div>
             )}
           </CardHeader>
-          <CardContent className="mt-4 p-0">
+          <CardContent className="mt-4 space-y-4 p-0">
             <CardDescription className="text-lg leading-relaxed text-muted-foreground">
               {doc.frontmatter.description}
             </CardDescription>
+            {Array.isArray(doc.frontmatter.tags) && doc.frontmatter.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {doc.frontmatter.tags.map((tag) => (
+                  <Badge 
+                    key={tag}
+                    variant="secondary" 
+                    className="transition-colors"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
         <div className={cn(
@@ -101,7 +117,9 @@ export async function getStaticProps({ params }) {
       },
       frontmatter: {
         title: doc.frontmatter?.title || null,
-        description: doc.frontmatter?.description || null
+        description: doc.frontmatter?.description || null,
+        tags: doc.frontmatter?.tags || [],
+        type: doc.frontmatter?.type || null
       },
       slug: slug || null
     }
